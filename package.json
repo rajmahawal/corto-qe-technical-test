@@ -4,10 +4,14 @@
   "description": "CORTO Quality Engineering technical test covering UI and API automation using Playwright and TypeScript.",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22 <26"
+  },
   "scripts": {
     "test": "playwright test",
-    "test:api": "playwright test tests/api",
-    "test:ui": "playwright test tests/ui --workers=1",
+    "test:api": "playwright test --project=api",
+    "test:ui": "playwright test --project=ui-chromium",
+    "test:ui:sequential": "playwright test --project=ui-chromium --workers=1",
     "test:headed": "playwright test --headed",
     "report": "playwright show-report",
     "typecheck": "tsc --noEmit"
@@ -20,7 +24,7 @@
     "api-automation"
   ],
   "author": "Raj Mahawal",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
