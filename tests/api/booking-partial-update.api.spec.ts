@@ -12,9 +12,7 @@ import {
   expectStatus,
   expectStatusIn,
 } from "../../src/api/assertions/response.assertions.js";
-import {
-  expectValidTokenResponse,
-} from "../../src/api/assertions/auth.assertions.js";
+import { expectValidTokenResponse } from "../../src/api/assertions/auth.assertions.js";
 import {
   expectCreateBookingResponse,
   expectValidBookingPayload,
@@ -25,6 +23,8 @@ const testData = loadJsonFile<BookingTestData>(
   "tests/api/data/booking-data.json",
 );
 
+// NOTE: merging locally rather than re-fetching to keep the test self-contained
+// and avoid masking bugs where GET returns stale data
 function mergeBookingPayload(
   currentBooking: BookingPayload,
   partialUpdate: PartialBookingPayload,

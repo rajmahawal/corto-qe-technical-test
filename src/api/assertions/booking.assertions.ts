@@ -53,9 +53,11 @@ export function expectValidBookingPayload(
     "Booking checkout date should be a string",
   ).toEqual(expect.any(String));
 
+  // NOTE: regex validates format only, not calendar validity (e.g. 2024-13-99 would pass)
+  // good enough for API contract testing purposes
   expect(
     booking.bookingdates.checkin,
-    "Booking checkin date should use CCYY-MM-DD format",
+    "checkin date should use YYYY-MM-DD format",
   ).toMatch(dateFormat);
 
   expect(
@@ -93,7 +95,7 @@ export function expectBookingIdArray(
 ): void {
   expect(
     Array.isArray(bookingIds),
-    "GetBookingIds response should be an array",
+    "response should be an array of booking Ids",
   ).toBe(true);
 
   if (!options?.allowEmpty) {

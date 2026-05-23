@@ -53,6 +53,7 @@ export class RestfulBookerClient {
     });
   }
 
+  // NOTE: Basic auth header is also supported by the API but cookie token works more reliably across environments in practice
   async updateBooking(
     bookingId: number,
     booking: BookingPayload,
@@ -79,6 +80,7 @@ export class RestfulBookerClient {
     });
   }
 
+  // TODO:  can add retry logic here for flaky network conditions in CI
   async deleteBooking(bookingId: number, token: string): Promise<APIResponse> {
     return this.request.delete(`/booking/${bookingId}`, {
       headers: {
@@ -98,5 +100,15 @@ export class RestfulBookerClient {
 
   async deleteBookingWithoutAuth(bookingId: number): Promise<APIResponse> {
     return this.request.delete(`/booking/${bookingId}`);
+  }
+
+  // NOTE: no cookie/auth header intentionally as testing unauthenticated PATCH behaviour
+  async partialUpdateBookingWithoutAuth(
+    bookingId: number,
+    booking: PartialBookingPayload,
+  ): Promise<APIResponse> {
+    return this.request.patch(`/booking/${bookingId}`, {
+      data: booking,
+    });
   }
 }

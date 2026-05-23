@@ -10,6 +10,8 @@ export async function expectStatus(
   if (actualStatus !== expectedStatus) {
     const responseBody = await response.text();
 
+    // NOTE: Providing the response body on failure saves a lot of time debugging
+    // CI logs do not always make it obvious what the API actually returned
     throw new Error(
       [
         message,

@@ -11,12 +11,8 @@ import {
   expectStatusIn,
   expectTextResponse,
 } from "../../src/api/assertions/response.assertions.js";
-import {
-  expectValidTokenResponse,
-} from "../../src/api/assertions/auth.assertions.js";
-import {
-  expectCreateBookingResponse,
-} from "../../src/api/assertions/booking.assertions.js";
+import { expectValidTokenResponse } from "../../src/api/assertions/auth.assertions.js";
+import { expectCreateBookingResponse } from "../../src/api/assertions/booking.assertions.js";
 import { loadJsonFile } from "../../src/api/utils/json-loader.js";
 
 const testData = loadJsonFile<BookingTestData>(

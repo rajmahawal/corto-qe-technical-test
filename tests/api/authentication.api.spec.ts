@@ -44,6 +44,8 @@ test.describe("CreateToken API", () => {
     const response = await restfulBookerClient.createToken(
       testData.auth.invalid,
     );
+
+    // This should ideally return status code as 401 NOT 200
     await expectStatus(
       response,
       200,
