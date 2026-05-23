@@ -20,15 +20,18 @@ export default defineConfig({
   projects: [
     {
       name: "api",
-      testMatch: /.*\.api\.spec\.ts/,
+      testMatch: /api\/.*\.api\.spec\.ts/,
       use: {
         baseURL:
           process.env.API_BASE_URL ?? "https://restful-booker.herokuapp.com",
+        extraHTTPHeaders: {
+          Accept: "application/json",
+        },
       },
     },
     {
       name: "ui-chromium",
-      testMatch: /.*\.ui\.spec\.ts/,
+      testMatch: /ui\/.*\.ui\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         baseURL: process.env.UI_BASE_URL ?? "https://demoqa.com",
