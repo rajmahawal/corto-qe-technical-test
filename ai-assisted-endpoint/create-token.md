@@ -6,7 +6,7 @@
 
 ## Purpose
 
-This endpoint creates an authentication token using valid Restful Booker credentials. The token is required for booking operations such as update, partial update, and delete.
+This endpoint creates an authentication token using valid Restful Booker credentials. The token is required for booking operations such as update, partial update and delete.
 
 ## Prompt Used
 

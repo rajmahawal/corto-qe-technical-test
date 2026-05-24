@@ -1,0 +1,19 @@
+{
+  "books": {
+    "gitPocketGuide": {
+      "title": "Git Pocket Guide",
+      "partialSearch": "git",
+      "author": "Richard E. Silverman",
+      "publisher": "O'Reilly Media"
+    },
+    "javascriptDesignPatterns": {
+      "title": "Learning JavaScript Design Patterns",
+      "partialSearch": "javascript",
+      "author": "Addy Osmani",
+      "publisher": "O'Reilly Media"
+    }
+  },
+  "search": {
+    "noResults": "no-book-should-match-this-search-12345"
+  }
+}
