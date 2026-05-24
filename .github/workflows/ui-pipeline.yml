@@ -1,0 +1,49 @@
+name: UI Pipeline
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ui-tests:
+    name: Lint, typecheck and UI tests
+    runs-on: ubuntu-latest
+
+    env:
+      UI_BASE_URL: https://demoqa.com
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run typecheck
+        run: npm run typecheck
+
+      - name: Run UI tests
+        run: npx playwright test --project=ui-chromium --workers=1
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-playwright-artifacts
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
