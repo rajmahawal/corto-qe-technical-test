@@ -38,13 +38,13 @@ npm test
 
 Detailed documentation is available in the `docs/` folder:
 
-- [Setup Guide](docs/setup.md) — local setup, Node version, dependency installation, Playwright browser installation, and environment variables
-- [Running Tests](docs/running-tests.md) — commands for lint, typecheck, API tests, UI tests, full suite, headed mode, UI mode, and debug mode
-- [Test Reporting](docs/test-reporting.md) — HTML report, traces, screenshots, videos, failure diagnostics, and CI artifacts
-- [Framework Design](docs/framework-design.md) — project architecture, API client layer, UI page objects, types, assertions, and locator strategy
-- [Test Strategy](docs/test-strategy.md) — API-first coverage, focused UI E2E coverage, test pyramid thinking, and maintenance approach
+- [Setup Guide](docs/setup.md) — local setup, Node version, dependency installation, Playwright browser installation and environment variables
+- [Running Tests](docs/running-tests.md) — commands for lint, typecheck, API tests, UI tests, full suite, headed mode, UI mode and debug mode
+- [Test Reporting](docs/test-reporting.md) — HTML report, traces, screenshots, videos, failure diagnostics and CI artifacts
+- [Framework Design](docs/framework-design.md) — project architecture, API client layer, UI page objects, types, assertions and locator strategy
+- [Test Strategy](docs/test-strategy.md) — API-first coverage, focused UI E2E coverage, test pyramid thinking and maintenance approach
 - [AI Usage](docs/ai-usage.md) — how AI was used, how output was reviewed, and how AI-assisted changes were validated
-- [CI/CD Execution](docs/ci-cd.md) — recommended GitHub Actions workflows, pipeline structure, and artifact handling
+- [CI/CD Execution](docs/ci-cd.md) — recommended GitHub Actions workflows, pipeline structure and artifact handling
 
 ## Project Structure
 
@@ -126,10 +126,20 @@ npm run report
 
 For more details, refer to [Running Tests](docs/running-tests.md).
 
+## Public Sandbox Notes
+
+Both DemoQA and Restful Booker are public sandbox applications, so tests are designed to validate stable behaviours and avoid brittle assumptions. Any known quirks or trade-offs are documented in the relevant docs pages.
+
 ## Final Notes
 
 The goal of this framework is not just to create tests, but to create a scalable automation foundation.
 
-Most functional coverage is implemented at the API layer because API tests are faster, lower maintenance and provide quick feedback. UI E2E tests are focused on high-value user journeys that validate the real customer experience.
+## Final Notes
 
-The framework was built step by step, continuously executed and validated throughout implementation so it can be extended with more tests in the future.
+This framework was built with a focus on practical quality engineering rather than adding unnecessary test volume.
+
+The API suite focuses on endpoint coverage, data flow, response contracts and negative scenarios. The UI suite focuses on the most valuable Book Store user journeys through the browser.
+
+The project is structured so another engineer can clone the repo, install dependencies, run the tests locally or in CI and understand the design decisions through the linked documentation.
+
+The framework was developed step by step, continuously executed and validated throughout implementation so it can be extended with more tests in the future.

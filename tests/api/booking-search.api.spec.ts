@@ -12,9 +12,7 @@ import {
   expectStatus,
   expectStatusIn,
 } from "../../src/api/assertions/response.assertions.js";
-import {
-  expectValidTokenResponse,
-} from "../../src/api/assertions/auth.assertions.js";
+import { expectValidTokenResponse } from "../../src/api/assertions/auth.assertions.js";
 import {
   expectBookingIdArray,
   expectCreateBookingResponse,
@@ -57,7 +55,7 @@ test.describe("Booking Search API", () => {
     await expectStatus(
       tokenResponse,
       200,
-      "CreateToken should return 200 before test data cleanup",
+      "CreateToken should return 200 for search test setup",
     );
 
     const tokenBody = await expectJsonResponse<AuthTokenResponse>(
@@ -90,6 +88,7 @@ test.describe("Booking Search API", () => {
       name: string;
       filters: BookingSearchFilters;
       expectCreatedBookingId: boolean;
+      expectEmptyResult?: boolean;
     }> = [
       {
         name: "firstname",
@@ -135,6 +134,14 @@ test.describe("Booking Search API", () => {
         },
         expectCreatedBookingId: false,
       },
+      {
+        name: "no matching firstname",
+        filters: {
+          firstname: "NoMatchingFirstname12345",
+        },
+        expectCreatedBookingId: false,
+        expectEmptyResult: true,
+      },
     ];
 
     try {
@@ -157,6 +164,13 @@ test.describe("Booking Search API", () => {
         );
 
         expectBookingIdArray(filteredBookingIds, { allowEmpty: true });
+
+        if (scenario.expectEmptyResult) {
+          expect(
+            filteredBookingIds,
+            `Filtered booking search by ${scenario.name} should return an empty array`,
+          ).toHaveLength(0);
+        }
 
         if (scenario.expectCreatedBookingId) {
           const returnedBookingIds = filteredBookingIds.map(

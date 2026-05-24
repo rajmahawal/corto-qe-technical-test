@@ -111,4 +111,17 @@ export class RestfulBookerClient {
       data: booking,
     });
   }
+
+  async createBookingWithRawPayload(
+    payload: string,
+    contentType: string,
+  ): Promise<APIResponse> {
+    return this.request.post("/booking", {
+      data: payload,
+      headers: {
+        "Content-Type": contentType,
+        Accept: "application/json",
+      },
+    });
+  }
 }
