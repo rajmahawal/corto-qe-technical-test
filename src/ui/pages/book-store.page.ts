@@ -49,9 +49,12 @@ export class BookStorePage {
 
   async openBook(title: string): Promise<void> {
     await Promise.all([
-      this.page.waitForURL((url) => url.toString().includes("/books?book="), {
-        timeout: 10_000,
-      }),
+      this.page.waitForURL(
+        (url) => url.toString().includes("/books?search="),
+        {
+          timeout: 10_000,
+        },
+      ),
       this.bookTitleLink(title).click(),
     ]);
   }
