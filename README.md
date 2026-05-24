@@ -56,6 +56,8 @@ src/
     types/
     utils/
 
+  config/
+
   ui/
     pages/
     types/
@@ -67,6 +69,7 @@ tests/
 
   ui/
     data/
+    fixtures/
 
 ai-assisted-endpoint/
 docs/
@@ -82,18 +85,20 @@ The API suite covers the Restful Booker endpoints with positive, negative, data-
 Current API coverage includes:
 
 - CreateToken
-- GetBookingIds
+- GetBookingIds, including supported filters and no-match search validation
 - GetBooking
 - CreateBooking
 - UpdateBooking
 - PartialUpdateBooking
 - DeleteBooking
 - HealthCheck
+- XML and URL-encoded CreateBooking request format validation
 
 ### UI Automation
 
 The UI suite covers critical DemoQA Book Store journeys:
 
+- Book Store catalog displays expected headers and default books
 - Search by exact title
 - Search by partial title
 - No-result search behaviour
@@ -130,13 +135,9 @@ For more details, refer to [Running Tests](docs/running-tests.md).
 
 Both DemoQA and Restful Booker are public sandbox applications, so tests are designed to validate stable behaviours and avoid brittle assumptions. Any known quirks or trade-offs are documented in the relevant docs pages.
 
-## Final Notes
+## Engineering Approach
 
-The goal of this framework is not just to create tests, but to create a scalable automation foundation.
-
-## Final Notes
-
-This framework was built with a focus on practical quality engineering rather than adding unnecessary test volume.
+The goal of this framework is not just to create tests, but to create a scalable automation foundation built around practical quality engineering rather than unnecessary test volume.
 
 The API suite focuses on endpoint coverage, data flow, response contracts and negative scenarios. The UI suite focuses on the most valuable Book Store user journeys through the browser.
 

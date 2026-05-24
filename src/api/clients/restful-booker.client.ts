@@ -124,4 +124,36 @@ export class RestfulBookerClient {
       },
     });
   }
+
+  async updateBookingWithRawPayload(
+    bookingId: number,
+    payload: string,
+    contentType: string,
+    token: string,
+  ): Promise<APIResponse> {
+    return this.request.put(`/booking/${bookingId}`, {
+      data: payload,
+      headers: {
+        Cookie: `token=${token}`,
+        "Content-Type": contentType,
+        Accept: "application/json",
+      },
+    });
+  }
+
+  async partialUpdateBookingWithRawPayload(
+    bookingId: number,
+    payload: string,
+    contentType: string,
+    token: string,
+  ): Promise<APIResponse> {
+    return this.request.patch(`/booking/${bookingId}`, {
+      data: payload,
+      headers: {
+        Cookie: `token=${token}`,
+        "Content-Type": contentType,
+        Accept: "application/json",
+      },
+    });
+  }
 }

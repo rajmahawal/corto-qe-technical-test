@@ -1,6 +1,4 @@
-import { test } from "@playwright/test";
-import { BookDetailsPage } from "../../src/ui/pages/book-details.page.js";
-import { BookStorePage } from "../../src/ui/pages/book-store.page.js";
+import { test } from "./fixtures/pages.fixture.js";
 import type { BookStoreTestData } from "../../src/ui/types/book-store.types.js";
 import { loadJsonFile } from "../../src/ui/utils/json-loader.js";
 
@@ -10,10 +8,9 @@ const testData = loadJsonFile<BookStoreTestData>(
 
 test.describe("Book Details UI", () => {
   test("user can search for a book, view its details and return to the Book Store", async ({
-    page,
+    bookStorePage,
+    bookDetailsPage,
   }) => {
-    const bookStorePage = new BookStorePage(page);
-    const bookDetailsPage = new BookDetailsPage(page);
     const book = testData.books.gitPocketGuide;
 
     await bookStorePage.goto();

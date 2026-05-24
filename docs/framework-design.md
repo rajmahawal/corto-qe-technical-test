@@ -191,7 +191,11 @@ UI tests are stored under:
 
 ```text
 tests/ui/
+  fixtures/
   data/
+  book-store-catalog.ui.spec.ts
+  book-store-search.ui.spec.ts
+  book-details.ui.spec.ts
 ```
 
 ### Page Object Model
@@ -220,6 +224,16 @@ backToBookStore
 ```
 
 This makes tests easier to understand and reduces duplication.
+
+### UI Fixtures
+
+UI tests use a shared page fixture:
+
+```text
+tests/ui/fixtures/pages.fixture.ts
+```
+
+The fixture provides reusable page objects such as `BookStorePage` and `BookDetailsPage` to the UI specs. This avoids repeating page object setup in every test and keeps the specs focused on user behaviour.
 
 ### UI Locator Strategy
 
@@ -272,16 +286,19 @@ src/ui/types/book-store.types.ts
 
 This gives compile-time safety when reading data from the JSON file.
 
-## JSON Loader
+## Utility Helpers
 
-The project uses small JSON loader utilities to load test data.
+The project uses small utility helpers to keep reusable logic out of spec files.
 
 ```text
 src/api/utils/json-loader.ts
+src/api/utils/booking-payload-formatters.ts
 src/ui/utils/json-loader.ts
 ```
 
-This keeps data loading consistent and avoids hardcoding test data inside spec files.
+`json-loader.ts` loads external test data from JSON files so test data stays separate from test logic.
+
+`booking-payload-formatters.ts` converts booking payloads into XML and URL-encoded request bodies so request format coverage stays reusable and does not clutter the test spec.
 
 ## Assertion Strategy
 

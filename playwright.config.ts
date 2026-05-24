@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { API_BASE_URL, UI_BASE_URL } from "./src/config/env.js";
 
 export default defineConfig({
   testDir: "./tests",
@@ -22,8 +23,7 @@ export default defineConfig({
       name: "api",
       testMatch: /api\/.*\.api\.spec\.ts/,
       use: {
-        baseURL:
-          process.env.API_BASE_URL ?? "https://restful-booker.herokuapp.com",
+        baseURL: API_BASE_URL,
         extraHTTPHeaders: {
           Accept: "application/json",
         },
@@ -34,7 +34,7 @@ export default defineConfig({
       testMatch: /ui\/.*\.ui\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: process.env.UI_BASE_URL ?? "https://demoqa.com",
+        baseURL: UI_BASE_URL,
         screenshot: "only-on-failure",
         video: "retain-on-failure",
       },

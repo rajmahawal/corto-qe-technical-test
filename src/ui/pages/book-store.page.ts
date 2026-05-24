@@ -47,23 +47,52 @@ export class BookStorePage {
     });
   }
 
+  async expectCatalogTableHeadersVisible(): Promise<void> {
+    const expectedHeaders = ["Image", "Title", "Author", "Publisher"];
+
+    for (const header of expectedHeaders) {
+      await expect(
+        this.page.getByRole("columnheader", { name: header }),
+        `Book Store table should show "${header}" column header`,
+      ).toBeVisible();
+    }
+  }
+
+  async expectDefaultCatalogRowsVisible(): Promise<void> {
+    await expect(
+      this.bookRows,
+      "Book Store should show default catalog rows",
+    ).not.toHaveCount(0);
+  }
+
   async openBook(title: string): Promise<void> {
     await Promise.all([
-      this.page.waitForURL(
-        (url) => url.toString().includes("/books?search="),
-        {
-          timeout: 10_000,
-        },
-      ),
+      this.page.waitForURL((url) => url.toString().includes("/books?search="), {
+        timeout: 10_000,
+      }),
       this.bookTitleLink(title).click(),
     ]);
   }
 
+  private async expectTitleLinkVisible(
+    title: string,
+    message: string,
+  ): Promise<void> {
+    await expect(this.bookTitleLink(title), message).toBeVisible();
+  }
+
   async expectBookVisible(title: string): Promise<void> {
-    await expect(
-      this.bookTitleLink(title),
+    await this.expectTitleLinkVisible(
+      title,
       `Book titled "${title}" should be visible in search results`,
-    ).toBeVisible();
+    );
+  }
+
+  async expectDefaultBookVisible(title: string): Promise<void> {
+    await this.expectTitleLinkVisible(
+      title,
+      `Default catalog should include "${title}"`,
+    );
   }
 
   async expectBookNotVisible(title: string): Promise<void> {

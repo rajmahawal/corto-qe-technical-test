@@ -46,7 +46,9 @@ The API tests include:
 - Negative scenarios
 - Data-driven tests
 - Data flow between endpoints
+- Search filter and no-match validation
 - Response contract validation
+- XML and URL-encoded request format validation for CreateBooking
 - Clear assertion messages
 - Cleanup where test data is created
 
@@ -92,12 +94,21 @@ Negative API scenarios validate failure behaviour, such as:
 
 These tests help confirm the API handles invalid or unauthorised requests correctly.
 
+### Non-JSON Request Format Behaviour
+
+The request format tests include XML and URL-encoded booking payloads.
+
+During testing, the public Restful Booker sandbox showed a possible behaviour where `depositpaid=false` sent through XML or URL-encoded payloads may be returned as `depositpaid=true`.
+
+The test documents this behaviour and validates the stable fields. Full boolean behaviour is still covered in the JSON booking lifecycle flow.
+
 ## UI Automation Strategy
 
 The DemoQA Book Store UI suite focuses on critical user journeys through the browser.
 
 The UI suite intentionally avoids trying to automate every possible UI interaction. Instead, it validates the highest-value flows:
 
+- Book Store catalog displays expected headers and default books
 - Search by exact title
 - Search by partial title
 - Search with no matching result
@@ -212,6 +223,7 @@ tests/api/authentication.api.spec.ts
 tests/api/booking-e2e-flow.api.spec.ts
 tests/api/booking-error-handling.api.spec.ts
 tests/api/booking-partial-update.api.spec.ts
+tests/api/booking-request-formats.api.spec.ts
 tests/api/booking-search.api.spec.ts
 tests/api/health-check.api.spec.ts
 ```
@@ -219,6 +231,7 @@ tests/api/health-check.api.spec.ts
 ### UI specs
 
 ```text
+tests/ui/book-store-catalog.ui.spec.ts
 tests/ui/book-store-search.ui.spec.ts
 tests/ui/book-details.ui.spec.ts
 ```

@@ -1,5 +1,4 @@
-import { test } from "@playwright/test";
-import { BookStorePage } from "../../src/ui/pages/book-store.page.js";
+import { test } from "./fixtures/pages.fixture.js";
 import type { BookStoreTestData } from "../../src/ui/types/book-store.types.js";
 import { loadJsonFile } from "../../src/ui/utils/json-loader.js";
 
@@ -8,8 +7,9 @@ const testData = loadJsonFile<BookStoreTestData>(
 );
 
 test.describe("Book Store Search UI", () => {
-  test("user can search for a book by exact title", async ({ page }) => {
-    const bookStorePage = new BookStorePage(page);
+  test("user can search for a book by exact title", async ({
+    bookStorePage,
+  }) => {
     const book = testData.books.gitPocketGuide;
 
     await bookStorePage.goto();
@@ -20,8 +20,9 @@ test.describe("Book Store Search UI", () => {
     await bookStorePage.expectBookRowDetails(book);
   });
 
-  test("user can search for books by partial title", async ({ page }) => {
-    const bookStorePage = new BookStorePage(page);
+  test("user can search for books by partial title", async ({
+    bookStorePage,
+  }) => {
     const matchingBook = testData.books.javascriptDesignPatterns;
     const nonMatchingBook = testData.books.gitPocketGuide;
 
@@ -34,9 +35,9 @@ test.describe("Book Store Search UI", () => {
     await bookStorePage.expectBookNotVisible(nonMatchingBook.title);
   });
 
-  test("user sees no book rows for a non-matching search", async ({ page }) => {
-    const bookStorePage = new BookStorePage(page);
-
+  test("user sees no book rows for a non-matching search", async ({
+    bookStorePage,
+  }) => {
     await bookStorePage.goto();
     await bookStorePage.search(testData.search.noResults);
 

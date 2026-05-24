@@ -36,7 +36,7 @@ jobs:
         run: npm run typecheck
 
       - name: Run UI tests
-        run: npx playwright test --project=ui-chromium --workers=1
+        run: npm run test:ui:sequential
 
       - name: Upload Playwright artifacts
         if: always()

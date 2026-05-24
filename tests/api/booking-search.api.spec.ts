@@ -112,6 +112,10 @@ test.describe("Booking Search API", () => {
         },
         expectCreatedBookingId: true,
       },
+
+      // The public Restful Booker sandbox can return inconsistent results for date filters.
+      // For date-only filters, validate the response contract rather than requiring the
+      // test-created booking ID to be present.
       {
         name: "checkin date",
         filters: {
