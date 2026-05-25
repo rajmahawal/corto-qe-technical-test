@@ -26,6 +26,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check API health
+        run: |
+          status_code=$(
+            curl -s -o /dev/null -w "%{http_code}" "$API_BASE_URL/ping"
+          )
+
+          echo "Health check status code: $status_code"
+
+          if [ "$status_code" -ne 200 ] && [ "$status_code" -ne 201 ]; then
+            echo "Restful Booker API health check failed with status: $status_code"
+            exit 1
+          fi
+
       - name: Run lint
         run: npm run lint
 

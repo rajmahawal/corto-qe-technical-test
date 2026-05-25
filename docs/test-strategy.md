@@ -38,7 +38,6 @@ The API suite covers:
 - UpdateBooking
 - PartialUpdateBooking
 - DeleteBooking
-- HealthCheck
 
 The API tests include:
 
@@ -48,7 +47,7 @@ The API tests include:
 - Data flow between endpoints
 - Search filter and no-match validation
 - Response contract validation
-- XML and URL-encoded request format validation for CreateBooking
+- XML and URL-encoded request format validation for CreateBooking, UpdateBooking and PartialUpdateBooking
 - Clear assertion messages
 - Cleanup where test data is created
 
@@ -96,11 +95,11 @@ These tests help confirm the API handles invalid or unauthorised requests correc
 
 ### Non-JSON Request Format Behaviour
 
-The request format tests include XML and URL-encoded booking payloads.
+The request format tests include XML and URL-encoded booking payloads for create, update and partial update operations.
 
 During testing, the public Restful Booker sandbox showed a possible behaviour where `depositpaid=false` sent through XML or URL-encoded payloads may be returned as `depositpaid=true`.
 
-The test documents this behaviour and validates the stable fields. Full boolean behaviour is still covered in the JSON booking lifecycle flow.
+XML and URL-encoded payloads send boolean values as text, so the compatibility test keeps `depositpaid=true` for stability. Full boolean behaviour is still covered in the JSON booking lifecycle flow.
 
 ## UI Automation Strategy
 
@@ -225,7 +224,6 @@ tests/api/booking-error-handling.api.spec.ts
 tests/api/booking-partial-update.api.spec.ts
 tests/api/booking-request-formats.api.spec.ts
 tests/api/booking-search.api.spec.ts
-tests/api/health-check.api.spec.ts
 ```
 
 ### UI specs

@@ -91,8 +91,7 @@ Current API coverage includes:
 - UpdateBooking
 - PartialUpdateBooking
 - DeleteBooking
-- HealthCheck
-- XML and URL-encoded CreateBooking request format validation
+- XML and URL-encoded request format validation for CreateBooking, UpdateBooking and PartialUpdateBooking
 
 ### UI Automation
 
@@ -131,6 +130,16 @@ npm run report
 
 For more details, refer to [Running Tests](docs/running-tests.md).
 
+## CI Health Check
+
+The API pipeline performs a lightweight `/ping` health check before running the API test suite.
+
+This is handled in:
+
+```text
+.github/workflows/api-pipeline.yml
+```
+
 ## Public Sandbox Notes
 
 Both DemoQA and Restful Booker are public sandbox applications, so tests are designed to validate stable behaviours and avoid brittle assumptions. Any known quirks or trade-offs are documented in the relevant docs pages.
@@ -144,3 +153,4 @@ The API suite focuses on endpoint coverage, data flow, response contracts and ne
 The project is structured so another engineer can clone the repo, install dependencies, run the tests locally or in CI and understand the design decisions through the linked documentation.
 
 The framework was developed step by step, continuously executed and validated throughout implementation so it can be extended with more tests in the future.
+```
